@@ -1,13 +1,13 @@
 from flask import render_template, request, redirect, url_for, flash, current_app
 from flask_login import login_required, current_user
 from models import Entry
-from app import app, db
+from app import db, app
+from instance.config import app
 
 
-@login_required
+# @login_required
 @app.route('/', methods=['GET'])
 def index():
-    current_app.logger.info('Calling the index() function.')
     return render_template('budget/index.html')
 
 
@@ -16,7 +16,7 @@ def index():
 @app.route('/entries', methods=['GET'])
 def list_entries():
     all_entries = Entry.query.order_by(Entry.id).filter_by(user_id=current_user.id).all()
-    return render_template('budget/entries.html', books=all_entries)
+    return render_template('budget/list_entries.html', books=all_entries)
 
 
 

@@ -7,29 +7,29 @@ class Entry(db.Model):
     __tablename__ = "entries"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
+    title = db.Column(db.String, nullable=False)
     amount = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.Date)
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    category = db.relationship("Category", backref='entry')
+    category = db.relationship('Category', backref='entry')
 
 
-    def __init__(self, name: str, amount: float, category_id: int, user_id: int):
-        self.name = name
-        self.amount = float(amount)
-        self.category_id = int(category_id)
-        self.user_id = int(user_id)
+    def __init__(self, title, amount, category_id, user_id):
+        self.title = title
+        self.amount = amount
+        self.category_id = category_id
+        self.user_id = user_id
 
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 
 
 class Category(db.Model):
-    __tablenames__ = "categories"
+    __tablename__ = "categories"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
@@ -43,11 +43,10 @@ class Category(db.Model):
         return self.name
 
 
-
-class Report(db.Model):
-    __tablename__ = "reports"
-
-    pass
+#
+# class Report(db.Model):
+#     __tablename__ = "reports"
+#
 
 
 class User(db.Model):
@@ -105,7 +104,7 @@ class User(db.Model):
         return str(self.id)
 
 
-db.create_all()
+# db.create_all()
 
 
 
