@@ -1,7 +1,5 @@
 from sqlalchemy import func
-from run import db, fbcrypt
-
-
+from app import db, fbcrypt
 
 
 
@@ -9,17 +7,20 @@ class Entry(db.Model):
     __tablename__ = "entries"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
-    created_at = db.Column(db.Date)
+    name = db.Column(db.String, nullable=False)
     amount = db.Column(db.Float, nullable=False)
+    created_at = db.Column(db.Date)
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     category = db.relationship("Category", backref='entry')
 
 
-    def __init__(self, name: str, amount: float):
+    def __init__(self, name: str, amount: float, category_id: int, user_id: int):
         self.name = name
-        self.amount = amount
+        self.amount = float(amount)
+        self.category_id = int(category_id)
+        self.user_id = int(user_id)
+
 
     def __str__(self):
         return self.name

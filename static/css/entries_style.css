@@ -1,0 +1,33 @@
+/* Budget List Styling
+ ********************/
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 1.25rem .8rem;
+  overflow: hidden;
+}
+
+th {
+  padding-bottom: .8rem;
+  border-top: 2px solid #DDD;
+  border-bottom: 4px solid #DDD;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #F9F9F9;
+}
+
+tfoot td {
+  background-color: #DDD;
+}
+
+table a {
+  text-decoration: underline;
+  font-weight: 700;
+}

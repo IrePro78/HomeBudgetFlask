@@ -1,0 +1,17 @@
+{% extends "budget/base.html" %}
+
+{% block content %}
+<h1>Dodaj wydatek</h1>
+<form method="post">
+  <label for="costName">Nazwa:</label>
+  <input type="text" id="costName" name="name" />
+  <br>
+  <label for="costAmount">Kwota:</label>
+  <input type="number" id="costAmount" name="amount" />
+  <br>
+  <label for="costCategory">Kategoria:</label>
+  <input type="number" id="costCategory" name="category_id" />
+  <br>
+  <input type="submit">
+</form>
+{% endblock %}

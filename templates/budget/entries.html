@@ -1,0 +1,33 @@
+{% extends "budget/base.html" %}
+
+{% block styling %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/entries_style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="entry-container">
+  <h1>List of entries:</h1>
+
+  <table class="entry-table">
+    <!-- Table Header Row -->
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Amount</th>
+      <th>Category</th>
+      <th>Created_at</th>
+    </tr>
+
+    <!-- Table Elements (Rows) -->
+    {% for stock in stocks %}
+      <tr>
+        <td>{{ entry.id }}</td>
+        <td>{{ entry.name }}</td>
+        <td>${{ entry.amount }}</td>
+        <td>{{ category.name}}</td>
+        <td>{{ entry.created_at}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

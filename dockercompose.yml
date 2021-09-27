@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  app:
+    container_name: flask_home_budget
+    restart: always
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - FLASK_APP=app.py
+    volumes:
+      - .:/app
+  db:
+    image: "postgres"
+    container_name: postgres_home_budget
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=Flask_DB
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=admin123
+    volumes:
+      - ./data/db:/var/lib/postgresql/data

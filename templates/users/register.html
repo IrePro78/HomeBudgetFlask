@@ -1,0 +1,35 @@
+{% extends "budget/base.html" %}
+
+{% block styling %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="form-wrap">
+  <h1>User Registration</h1>
+
+  <form method="post">
+    {{ form.csrf_token }}
+
+    <div class="field">
+      {{ form.username.label }}
+      {{ form.username }}
+      {% for error in form.username.errors %}
+        <p class="validation-error">[{{ error }}]</p>
+      {% endfor %}
+    </div>
+
+    <div class="field">
+      {{ form.password.label }}
+      {{ form.password }}
+      {% for error in form.password.errors %}
+        <p class="validation-error">[{{ error }}]</p>
+      {% endfor %}
+    </div>
+
+    <div class="field">
+      <button type="submit">Register</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

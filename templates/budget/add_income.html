@@ -1,0 +1,17 @@
+{% extends "budget/base.html" %}
+
+{% block content %}
+<h1>Dodaj dochód</h1>
+<form method="post">
+  <label for="incomeName">Nazwa:</label>
+  <input type="text" id="incomeName" name="name" />
+  <br>
+  <label for="incomeAmount">Kwota:</label>
+  <input type="number" id="incomeAmount" name="amount" />
+  <br>
+  <label for="incomeCategory">Kategoria:</label>
+  <input type="number" id="incomeCategory" name="category_id" />
+  <br>
+  <input type="submit">
+</form>
+{% endblock %}
