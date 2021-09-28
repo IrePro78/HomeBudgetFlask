@@ -3,12 +3,16 @@ from mod_auth.forms import RegisterForm, LoginForm, EmailForm, PasswordForm, Cha
 from flask_login import login_user, current_user, login_required, logout_user
 from itsdangerous import URLSafeTimedSerializer, BadSignature
 from sqlalchemy.exc import IntegrityError
+from mod_auth import users_blueprint
 from urllib.parse import urlparse
 from flask_mail import Message
 from datetime import datetime
 from threading import Thread
 from models import User
 from app import db, mail
+
+
+
 
 
 def generate_password_reset_email(user_email):
@@ -18,10 +22,12 @@ def generate_password_reset_email(user_email):
                                  _external=True)
 
     return Message(subject='Flask Books Library App - Żądanie zresetowania hasła!',
-                   html=render_template('users/email_password_reset.html', password_reset_url=password_reset_url),
+                   html=render_template('/users/email_password_reset.html', password_reset_url=password_reset_url),
                    recipients=[user_email])
 
 
+
+@users_blueprint.route('/password_reset_via_email', methods=['GET', 'POST'])
 def password_reset_via_email():
     form = EmailForm(request.form)
 
@@ -50,6 +56,8 @@ def password_reset_via_email():
     return render_template('users/password_reset_via_email.html', form=form)
 
 
+
+@users_blueprint.route('/password_reset_via_token/<token>', methods=['GET', 'POST'])
 def process_password_reset_token(token):
     try:
         password_reset_serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
@@ -77,6 +85,7 @@ def process_password_reset_token(token):
 
 
 @login_required
+@users_blueprint.route('/change_password', methods=['GET', 'POST'])
 def change_password():
     form = ChangePasswordForm(request.form)
 
@@ -96,6 +105,7 @@ def change_password():
 
 
 @login_required
+@users_blueprint.route('/resend_email_confirmation', methods=['GET', 'POST'])
 def resend_email_confirmation():
     @copy_current_request_context
     def send_email(email_message):
@@ -111,6 +121,7 @@ def resend_email_confirmation():
     return redirect(url_for('user_profile'))
 
 
+@users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         flash('Jesteś już zalogowany!', 'info')
@@ -143,12 +154,15 @@ def login():
 
 
 @login_required
+@users_blueprint.route('/logout', methods=['GET', 'POST'])
 def logout():
     logout_user()
     flash('Do zobaczenia! ', 'info')
-    return redirect(url_for('login'))
+    return redirect(url_for('users.login'))
 
 
+
+@users_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm(request.form)
 
@@ -183,6 +197,7 @@ def register():
 
 
 @login_required
+@users_blueprint.route('/delete_account', methods=['GET', 'POST'])
 def delete_account():
    user = User.query.filter_by(id=current_user.id).first()
    db.session.delete(user)
@@ -194,8 +209,11 @@ def delete_account():
 
 
 @login_required
+@users_blueprint.route('/user_profile', methods=['GET', 'POST'])
 def user_profile():
-    return render_template('users/profile.html')
+    return render_template('users/user_profile.html')
+
+
 
 
 def generate_confirmation_email(user_email):
@@ -210,6 +228,8 @@ def generate_confirmation_email(user_email):
                    recipients=[user_email])
 
 
+
+@users_blueprint.route('/confirm/<token>', methods=['GET', 'POST'])
 def confirm_email(token):
     try:
         confirm_serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])

@@ -1,7 +1,7 @@
 from app import app
 
 
-app.secret_key = 'SecretKey'
+app.secret_key = 'tajnyKod'
 app.config['SESSION_TYPE'] = 'memcached'
 app.config['DEBUG'] = True
 app.config["TEMPLATES_AUTO_RELOAD"] = True

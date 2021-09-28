@@ -1,4 +1,4 @@
-{% extends "budget/base.html" %}
+{% extends "base.html" %}
 
 {% block styling %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/user_profile_style.css') }}">
@@ -21,7 +21,7 @@
     <h2>Account Statistics</h2>
   </div>
   <div class="card-body">
-    <p>Joined on {{ current_user.registered_on.strftime("%A, %B %d, %Y") }}</p>
+    <p>Joined on {{ current_user.registered_on.strftime("%d/%m/%Y, %H:%M:%S") }}</p>
     {% if current_user.email_confirmed %}
       <p>Email address confirmed on {{ current_user.email_confirmed_on.strftime("%A, %B %d, %Y") }}</p>
     {% else %}

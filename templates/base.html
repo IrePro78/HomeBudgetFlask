@@ -18,12 +18,12 @@
   <body>
     <header class="site-header">
       <nav class="nav">
-        <a class="nav-link logo" href="{{ url_for('index') }}">Flask Home Budget App</a>
+        <a class="nav-link logo" href="{{ url_for('budget.index') }}">Flask Home Budget App</a>
         <ul class="nav-list">
           {% if current_user.is_authenticated %}
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.list_entries') }}">List Stocks</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.add_cost') }}">Add Stock</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('users.profile') }}">Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.list_entries') }}">List Entries</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.add_cost') }}">Add Cost</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('users.user_profile') }}">Profile</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a></li>
           {% else %}
             <li class="nav-item"><a class="nav-link" href="{{ url_for('users.register') }}">Register</a></li>
@@ -52,7 +52,7 @@
     </div>
 
     <main class="content">
-      <!-- child template -->
+      <!-- child templates -->
       {% block content %}
       {% endblock %}
     </main>

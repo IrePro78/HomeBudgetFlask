@@ -12,6 +12,7 @@ import logging
 
 app = Flask(__name__)
 
+
 from instance.config import app
 
 db = SQLAlchemy(app)
@@ -56,7 +57,17 @@ from models import User
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-from mod_budget import routes
+
+# Import the blueprints
+from mod_budget import budget_blueprint
+from mod_auth import users_blueprint
+
+
+# Register the blueprints
+app.register_blueprint(budget_blueprint)
+app.register_blueprint(users_blueprint, url_prefix='/users')
+
+
 
 
 if __name__ == '__main__':

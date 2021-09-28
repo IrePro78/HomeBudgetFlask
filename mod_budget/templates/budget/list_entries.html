@@ -1,4 +1,4 @@
-{% extends "budget/base.html" %}
+{% extends "base.html" %}
 
 {% block styling %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/entries_style.css') }}">
@@ -19,7 +19,7 @@
     </tr>
 
     <!-- Table Elements (Rows) -->
-    {% for stock in stocks %}
+    {% for entry in entries %}
       <tr>
         <td>{{ entry.id }}</td>
         <td>{{ entry.name }}</td>
