@@ -8,30 +8,15 @@ from flask_mail import Mail
 from flask import Flask
 import logging
 
+from project import create_app
+
+app = create_app()
 
 
-app = Flask(__name__)
 
-
-from instance.config import app
 
 db = SQLAlchemy(app)
 
-#Migracja db
-# db_migration = Migrate()
-
-
-#Logi
-file_handler = RotatingFileHandler('instance/logs/flask-books-library-app.log',
-                                   maxBytes=16384,
-                                   backupCount=20)
-file_formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s [%(funcName)s in %(filename)s:%(lineno)d]')
-file_handler.setFormatter(file_formatter)
-file_handler.setLevel(logging.INFO)
-app.logger.addHandler(file_handler)
-
-#Logger
-app.logger.info('Uruchamianie aplikacji Flask Books Library App... ')
 
 #Logowanie użytkowników
 login = LoginManager(app)
@@ -56,19 +41,19 @@ from models import User
 @login.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
-
-# Import the blueprints
-from mod_budget import budget_blueprint
-from mod_auth import users_blueprint
-
-
-# Register the blueprints
-app.register_blueprint(budget_blueprint)
-app.register_blueprint(users_blueprint, url_prefix='/users')
-
-
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+#
+#
+# # Import the blueprints
+# from project.mod_budget import budget_blueprint
+# from project.mod_auth import users_blueprint
+#
+#
+# # Register the blueprints
+# app.register_blueprint(budget_blueprint)
+# app.register_blueprint(users_blueprint, url_prefix='/users')
+#
+#
+#
+#
+# if __name__ == '__main__':
+#     app.run(debug=True)

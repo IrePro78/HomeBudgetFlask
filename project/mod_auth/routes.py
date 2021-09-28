@@ -1,9 +1,9 @@
 from flask import render_template, flash, redirect, url_for, request, abort, current_app, copy_current_request_context
-from mod_auth.forms import RegisterForm, LoginForm, EmailForm, PasswordForm, ChangePasswordForm
+from project.mod_auth.forms import RegisterForm, LoginForm, EmailForm, PasswordForm, ChangePasswordForm
 from flask_login import login_user, current_user, login_required, logout_user
 from itsdangerous import URLSafeTimedSerializer, BadSignature
 from sqlalchemy.exc import IntegrityError
-from mod_auth import users_blueprint
+from project.mod_auth import users_blueprint
 from urllib.parse import urlparse
 from flask_mail import Message
 from datetime import datetime
