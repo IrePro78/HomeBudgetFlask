@@ -34,10 +34,10 @@
     </div>
 
     <div class="field">
-      {{ form.submit() }}
+      <button type="submit">Zaloguj</button>
     </div>
     <div class="forgot-password">
-        <p><em><a href="{{ url_for('users.password_reset_via_email') }}">Forgot your password?</a></em></p>
+        <p><em><a href="{{ url_for('users.password_reset_via_email') }}">Nie pamiętasz hasła?</a></em></p>
     </div>
   </form>
 </div>

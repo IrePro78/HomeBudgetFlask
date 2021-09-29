@@ -1,11 +1,11 @@
-from wtforms import Form, StringField, PasswordField, BooleanField, validators, SubmitField
+from wtforms import Form, StringField, PasswordField, BooleanField, validators
 
 
 class RegisterForm(Form):
     username = StringField('Nazwa użytkownika', [validators.Length(min=5)])
     email = StringField('Email ', [validators.Email()])
     password = PasswordField('Hasło', [validators.Length(min=6)])
-    password_repeat = PasswordField('Powtórz Hasło', [validators.Length(min=6)])
+    # password_repeat = PasswordField('Powtórz Hasło', [validators.Length(min=6)])
 
 
 
@@ -13,7 +13,7 @@ class LoginForm(Form):
     username = StringField('Nazwa użytkownika ', [validators.Length(min=5)])
     password = PasswordField('Hasło', [validators.Length(min=6)])
     remember_me = BooleanField('Pamiętaj Mnie')
-    submit = SubmitField('Zaloguj')
+
 
 class EmailForm(Form):
     email = StringField('Email', [validators.Email()])

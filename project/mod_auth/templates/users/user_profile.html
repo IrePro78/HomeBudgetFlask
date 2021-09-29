@@ -5,11 +5,14 @@
 {% endblock %}
 
 {% block content %}
-<h1>User Profile</h1>
+<h1>Profil Użytkownika</h1>
 
 <div class="card">
   <div class="card-heading">
-    <h2>Account</h2>
+    <h2>Konto</h2>
+  </div>
+    <div class="card-body">
+    <p>Użytkownik: {{ current_user.username }}</p>
   </div>
   <div class="card-body">
     <p>Email: {{ current_user.email }}</p>
@@ -18,26 +21,26 @@
 
 <div class="card">
   <div class="card-heading">
-    <h2>Account Statistics</h2>
+    <h2>Statystyki</h2>
   </div>
   <div class="card-body">
-    <p>Joined on {{ current_user.registered_on.strftime("%d/%m/%Y, %H:%M:%S") }}</p>
+    <p>Dołączył {{ current_user.registered_on.strftime("%d/%m/%Y, %H:%M:%S") }}</p>
     {% if current_user.email_confirmed %}
-      <p>Email address confirmed on {{ current_user.email_confirmed_on.strftime("%A, %B %d, %Y") }}</p>
+      <p>Email potwierdzony {{ current_user.email_confirmed_on.strftime("%A, %B %d, %Y") }}</p>
     {% else %}
-      <p>Email address has not been confirmed!</p>
+      <p>Email nie został potwierdzony!</p>
     {% endif %}
   </div>
 </div>
 
 <div class="card">
   <div class="card-heading">
-    <h2>Account Actions</h2>
+    <h2>Akcje</h2>
   </div>
   <div class="card-body">
-    <p><a href="{{ url_for('users.change_password') }}">Change Password</a></p>
+    <p><a href="{{ url_for('users.change_password') }}">Zmiana hasła</a></p>
     {% if not current_user.email_confirmed %}
-      <p><a href="{{ url_for('users.resend_email_confirmation') }}">Resend Email Confirmation</a></p>
+      <p><a href="{{ url_for('users.resend_email_confirmation') }}">Wyślij link aktywacyjny</a></p>
     {% endif %}
   </div>
 </div>

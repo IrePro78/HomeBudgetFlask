@@ -1,5 +1,5 @@
 from sqlalchemy import func
-from app import db, fbcrypt
+from project import db, fbcrypt
 
 
 

@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for, flash, current_ap
 from flask_login import login_required, current_user
 from . import budget_blueprint
 from models import Entry
-from app import db, app
+from project import db
 
 
 

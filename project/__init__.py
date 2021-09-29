@@ -1,21 +1,43 @@
 from logging.handlers import RotatingFileHandler
 from flask.logging import default_handler
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
+from flask_bcrypt import Bcrypt
+from flask_mail import Mail
 from flask import Flask
 import logging
 
 
+# Baza danych
+db = SQLAlchemy()
+
+# Logowanie użytkowników
+login = LoginManager()
+
+# Hashowanie hasła
+fbcrypt = Bcrypt()
+
+# CSRF
+csrf = CSRFProtect()
+
+# Mail
+mail = Mail()
+
 
 def create_app():
     app = Flask(__name__)
-# Configure Flask App
-    app.config.from_pyfile('instance/flask.cfg')
+
+    app.config.from_pyfile('/app/instance/flask.cfg')
+
     register_blueprints(app)
     configure_logging(app)
+    initialize_extensions(app)
+
     return app
 
 
 def register_blueprints(app):
-    # Import the blueprints
     from project.mod_budget import budget_blueprint
     from project.mod_auth import users_blueprint
 
@@ -39,3 +61,29 @@ def configure_logging(app):
 
     # Logger
     app.logger.info('Uruchamianie aplikacji Flask Books Library App... ')
+
+
+def initialize_extensions(app):
+    # Inicjalizacja bazy danych
+    db.init_app(app)
+
+    # Logowanie użytkowników
+    login.init_app(app)
+    login.login_view = 'users.login'
+    login.login_message = 'Zaloguj się, aby uzyskać dostęp do tej strony.'
+    login.login_message_category = 'info'
+
+    from models import User
+
+    @login.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
+    # Hashowanie hasła
+    fbcrypt.init_app(app)
+
+    # CSRF
+    # csrf.init_app(app)
+
+    # Mail
+    mail.init_app(app)
