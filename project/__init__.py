@@ -83,7 +83,7 @@ def initialize_extensions(app):
     fbcrypt.init_app(app)
 
     # CSRF
-    # csrf.init_app(app)
+    csrf.init_app(app)
 
     # Mail
     mail.init_app(app)
