@@ -29,7 +29,7 @@ def generate_password_reset_email(user_email):
 
 @users_blueprint.route('/password_reset_via_email', methods=['GET', 'POST'])
 def password_reset_via_email():
-    form = EmailForm(request.form)
+    form = EmailForm()
 
     if form.validate():
         user = User.query.filter_by(email=form.email.data).first()
@@ -66,9 +66,9 @@ def process_password_reset_token(token):
         flash('Link do resetowania hasła jest nieprawidłowy lub wygasł', 'danger')
         return redirect(url_for('users.login'))
 
-    form = PasswordForm(request.form)
+    form = PasswordForm()
 
-    if form.validate():
+    if form.validate_on_submit():
         user = User.query.filter_by(email=email).first()
 
         if user is None:
@@ -84,12 +84,13 @@ def process_password_reset_token(token):
     return render_template('users/reset_password_with_token.html', form=form)
 
 
-@login_required
-@users_blueprint.route('/change_password', methods=['GET', 'POST'])
-def change_password():
-    form = ChangePasswordForm(request.form)
 
-    if form.validate():
+@users_blueprint.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+
+    if form.validate_on_submit():
         if current_user.is_password_correct(form.current_password.data):
             current_user.set_password(form.new_password.data)
             current_user.updated_on = datetime.now()
@@ -104,8 +105,9 @@ def change_password():
     return render_template('users/change_password.html', form=form)
 
 
-@login_required
+
 @users_blueprint.route('/resend_email_confirmation', methods=['GET', 'POST'])
+@login_required
 def resend_email_confirmation():
     @copy_current_request_context
     def send_email(email_message):
@@ -121,17 +123,18 @@ def resend_email_confirmation():
     return redirect(url_for('users.user_profile'))
 
 
+
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         flash('Jesteś już zalogowany!', 'info')
         current_app.logger.info(f'Duplicate login attempt by user: {current_user.username}!')
-        return redirect(url_for('users.index'))
+        return redirect(url_for('budget.index'))
 
-    form = LoginForm(request.form)
+    form = LoginForm()
 
     if request.method == 'POST':
-        if form.validate():
+        if form.validate_on_submit():
             user = User.query.filter_by(username=form.username.data).first()
 
             if user and user.is_password_correct(form.password.data):
@@ -140,10 +143,11 @@ def login():
                 current_app.logger.info(f'Logged in user: {current_user.username}!')
 
                 if not request.args.get('next'):
-                    return redirect(url_for('budget.index'))
+                    return redirect(url_for('users.user_profile'))
 
                 next_url = request.args.get('next')
                 if urlparse(next_url).scheme != '' or urlparse(next_url).netloc != '':
+                    current_app.logger.info(f'Invalid next path in login request: {next_url}')
                     logout_user()
                     return abort(400)
 
@@ -153,8 +157,9 @@ def login():
     return render_template('users/login.html', form=form)
 
 
-@login_required
+
 @users_blueprint.route('/logout', methods=['GET', 'POST'])
+@login_required
 def logout():
     logout_user()
     flash('Do zobaczenia! ', 'info')
@@ -164,10 +169,10 @@ def logout():
 
 @users_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegisterForm(request.form)
+    form = RegisterForm()
 
     if request.method == 'POST':
-        if form.validate():
+        if form.validate_on_submit():
             try:
                 new_user = User(form.username.data, form.password.data, form.email.data)
                 db.session.add(new_user)
@@ -196,8 +201,9 @@ def register():
     return render_template('users/register.html', form=form)
 
 
-@login_required
+
 @users_blueprint.route('/delete_account', methods=['GET', 'POST'])
+@login_required
 def delete_account():
    user = User.query.filter_by(id=current_user.id).first()
    db.session.delete(user)
@@ -208,8 +214,9 @@ def delete_account():
    return redirect(url_for('users.login'))
 
 
-@login_required
+
 @users_blueprint.route('/user_profile', methods=['GET', 'POST'])
+@login_required
 def user_profile():
     return render_template('users/user_profile.html')
 

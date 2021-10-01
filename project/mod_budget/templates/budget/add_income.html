@@ -1,17 +1,34 @@
 {% extends "base.html" %}
 
+{% block styling %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_style.css') }}">
+{% endblock %}
+
+
 {% block content %}
-<h1>Dodaj dochód</h1>
+<h1>Dodaj przychód</h1>
 <form method="post">
-  <label for="incomeName">Nazwa:</label>
-  <input type="text" id="incomeName" name="name" />
-  <br>
-  <label for="incomeAmount">Kwota:</label>
-  <input type="number" id="incomeAmount" name="amount" />
-  <br>
-  <label for="incomeCategory">Kategoria:</label>
-  <input type="number" id="incomeCategory" name="category_id" />
-  <br>
-  <input type="submit">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  <div class="field">
+  <label for="costName">Nazwa:<em>(*)</em></label>
+  <input type="text" id="costName" name="title" required/>
+  </div>
+
+  <div class="field">
+
+  <label for="costAmount">Kwota:<em>(*)</em></label>
+  <input type="number" step="0.01" id="costAmount" name="amount" required/>
+  </div>
+
+  <div class="field">
+
+  <label for="costCategory">Kategoria:<em>(*)</em></label>
+  <input type="text" id="costCategory" name="category" required />
+  </div>
+
+  <div class="field">
+      <button type="submit">Dodaj</button>
+  </div>
+
 </form>
 {% endblock %}

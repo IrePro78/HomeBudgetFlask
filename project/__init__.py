@@ -12,6 +12,7 @@ import logging
 # Baza danych
 db = SQLAlchemy()
 
+
 # Logowanie użytkowników
 login = LoginManager()
 
@@ -28,7 +29,9 @@ mail = Mail()
 def create_app():
     app = Flask(__name__)
 
+
     app.config.from_pyfile('/app/instance/flask.cfg')
+
 
     register_blueprints(app)
     configure_logging(app)
@@ -75,6 +78,11 @@ def initialize_extensions(app):
 
     from models import User
 
+
+    # Create tables
+    # with app.app_context():
+    #    db.create_all()
+
     @login.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
@@ -85,5 +93,7 @@ def initialize_extensions(app):
     # CSRF
     csrf.init_app(app)
 
+
     # Mail
     mail.init_app(app)
+

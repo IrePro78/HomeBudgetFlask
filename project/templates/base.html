@@ -21,13 +21,14 @@
         <a class="nav-link logo" href="{{ url_for('budget.index') }}">Flask Home Budget App</a>
         <ul class="nav-list">
           {% if current_user.is_authenticated %}
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.list_entries') }}">List Entries</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.add_cost') }}">Add Cost</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('users.user_profile') }}">Profile</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.list_entries') }}">Lista Wpisów</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.add_cost') }}">Dodaj wydatek</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.add_income') }}">Dodaj przychód</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('users.user_profile') }}">Profil</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('users.logout') }}">Wyloguj</a></li>
           {% else %}
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('users.register') }}">Register</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('users.login') }}">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('users.register') }}">Zarejestruj</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('users.login') }}">Zaloguj</a></li>
           {% endif %}
         </ul>
       </nav>
@@ -58,7 +59,7 @@
     </main>
 
     <footer class="site-footer">
-      <small>pythonweb.pl 2021</small>
+      <small>http://pythonweb.pl 2021</small>
     </footer>
 
     {% block javascript %}

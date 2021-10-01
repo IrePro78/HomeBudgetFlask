@@ -1,17 +1,35 @@
 {% extends "base.html" %}
 
+{% block styling %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_style.css') }}">
+{% endblock %}
+
+
 {% block content %}
 <h1>Dodaj wydatek</h1>
 <form method="post">
-  <label for="costName">Nazwa:</label>
-  <input type="text" id="costName" name="name" />
-  <br>
-  <label for="costAmount">Kwota:</label>
-  <input type="number" id="costAmount" name="amount" />
-  <br>
-  <label for="costCategory">Kategoria:</label>
-  <input type="number" id="costCategory" name="category_id" />
-  <br>
-  <input type="submit">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  <div class="field">
+  <label for="costName">Nazwa:<em>(wymagany)</em></label>
+  <input type="text" id="costName" name="title" required/>
+  </div>
+
+  <div class="field">
+
+  <label for="costAmount">Kwota:<em>(wymagany)</em></label>
+  <input type="number" step="0.01" id="costAmount" name="amount" required/>
+  </div>
+
+  <div class="field">
+
+  <label for="costCategory">Kategoria:<em>(wymagany)</em></label>
+  <input type="text" id="costCategory" name="category" required />
+  </div>
+
+  <div class="field">
+      <button type="submit">Dodaj</button>
+  </div>
+
 </form>
 {% endblock %}
+

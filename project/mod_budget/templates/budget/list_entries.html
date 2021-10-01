@@ -6,25 +6,25 @@
 
 {% block content %}
 <div class="entry-container">
-  <h1>List of entries:</h1>
+  <h1>Lista przychodów i wydatków:</h1>
 
   <table class="entry-table">
     <!-- Table Header Row -->
     <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Amount</th>
-      <th>Category</th>
-      <th>Created_at</th>
+      <th>id</th>
+      <th>Nazwa</th>
+      <th>Kwota</th>
+      <th>Kategoria</th>
+      <th>Utworzona</th>
     </tr>
 
     <!-- Table Elements (Rows) -->
     {% for entry in entries %}
       <tr>
         <td>{{ entry.id }}</td>
-        <td>{{ entry.name }}</td>
-        <td>${{ entry.amount }}</td>
-        <td>{{ category.name}}</td>
+        <td>{{ entry.title }}</td>
+        <td>{{ entry.amount }}</td>
+        <td>{{ entry.category.name}}</td>
         <td>{{ entry.created_at}}</td>
       </tr>
     {% endfor %}

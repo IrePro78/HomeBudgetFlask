@@ -9,7 +9,7 @@ class Entry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
     amount = db.Column(db.Float, nullable=False)
-    created_at = db.Column(db.Date)
+    created_at = db.Column(db.Date, server_default=func.now())
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     category = db.relationship('Category', backref='entry')
@@ -17,7 +17,7 @@ class Entry(db.Model):
 
     def __init__(self, title, amount, category_id, user_id):
         self.title = title
-        self.amount = amount
+        self.amount = float(amount) * -1
         self.category_id = category_id
         self.user_id = user_id
 
@@ -32,10 +32,10 @@ class Category(db.Model):
     __tablename__ = "categories"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
+    name = db.Column(db.String, nullable=False)
 
 
-    def __init__(self, name: str):
+    def __init__(self, name):
         self.name = name
 
 
@@ -104,7 +104,8 @@ class User(db.Model):
         return str(self.id)
 
 
-# db.create_all()
+
+
 
 
 

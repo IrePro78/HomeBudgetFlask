@@ -1,5 +1,19 @@
 {% extends "base.html" %}
 
+{% block styling %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index_style.css') }}">
+{% endblock %}
+
 {% block content %}
-<h1>Welcome to the Flask Home Budget App!</h1>
+<div class="container">
+  <header class="content-text">
+    <h1>Welcome to the <strong>Flask Home Budget App!</strong></h1>
+    <p>Track your home budget and manage your expenses.</p>
+  </header>
+  <figure class="content-image">
+    <img
+      src="{{ url_for('static', filename='img/hacking.jpg') }}"
+      alt="Laptop computer on a desk">
+  </figure>
+</div>
 {% endblock %}

@@ -1,29 +1,32 @@
-from wtforms import Form, StringField, PasswordField, BooleanField, validators
+from wtforms import StringField, PasswordField, BooleanField
+from wtforms.validators import DataRequired, Length, Email
+from flask_wtf import FlaskForm
 
 
-class RegisterForm(Form):
-    username = StringField('Nazwa użytkownika', [validators.Length(min=5)])
-    email = StringField('Email ', [validators.Email()])
-    password = PasswordField('Hasło', [validators.Length(min=6)])
+
+class RegisterForm(FlaskForm):
+    username = StringField('Nazwa użytkownika', [DataRequired(), Length(min=5)])
+    email = StringField('Email ', [DataRequired(), Email()])
+    password = PasswordField('Hasło', [DataRequired(), Length(min=6)])
     # password_repeat = PasswordField('Powtórz Hasło', [validators.Length(min=6)])
 
 
 
-class LoginForm(Form):
-    username = StringField('Nazwa użytkownika ', [validators.Length(min=5)])
-    password = PasswordField('Hasło', [validators.Length(min=6)])
+class LoginForm(FlaskForm):
+    username = StringField('Nazwa użytkownika ', [DataRequired(), Length(min=5)])
+    password = PasswordField('Hasło', [DataRequired(), Length(min=6)])
     remember_me = BooleanField('Pamiętaj Mnie')
 
 
-class EmailForm(Form):
-    email = StringField('Email', [validators.Email()])
+class EmailForm(FlaskForm):
+    email = StringField('Email', [DataRequired(), Email()])
 
 
 
-class PasswordForm(Form):
-    password = PasswordField('Nowe Hasło', [validators.Length(min=6)])
+class PasswordForm(FlaskForm):
+    password = PasswordField('Nowe Hasło', [DataRequired(), Length(min=6)])
 
 
-class ChangePasswordForm(Form):
-    current_password = PasswordField('Obecne Hasło ', [validators.Length(min=6)])
-    new_password = PasswordField('Nowe Hasło ', [validators.Length(min=6)])
+class ChangePasswordForm(FlaskForm):
+    current_password = PasswordField('Obecne Hasło ', [DataRequired(), Length(min=6)])
+    new_password = PasswordField('Nowe Hasło ', [DataRequired(), Length(min=6)])
