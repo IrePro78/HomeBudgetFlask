@@ -1,3 +1,4 @@
+from flask_login import current_user
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, Email
 from flask_wtf import FlaskForm
@@ -13,9 +14,16 @@ class RegisterForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Nazwa użytkownika ', [DataRequired(), Length(min=5)])
-    password = PasswordField('Hasło', [DataRequired(), Length(min=6)])
+    username = StringField('Nazwa użytkownika ', [DataRequired(), Length(min=5, message=('Nazwa jest za krótka.'))])
+    password = PasswordField('Hasło', [DataRequired(), Length(min=6, message=('Hasło jest za krótkie.'))])
     remember_me = BooleanField('Pamiętaj Mnie')
+
+
+class EditForm(FlaskForm):
+    username = StringField('Nazwa użytkownika', [DataRequired(), Length(min=5)])
+    email = StringField('Email ', [DataRequired(), Email()])
+    password = PasswordField('Hasło', [DataRequired(), Length(min=6)])
+
 
 
 class EmailForm(FlaskForm):

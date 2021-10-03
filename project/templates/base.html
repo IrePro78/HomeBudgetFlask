@@ -10,6 +10,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base_style.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/x-icon">
 
+
+    <!-- Local CSS file for styling the application-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/i18n/pl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+
+
+
+
+
+
+
     <!-- Additional Styling -->
     {% block styling %}
     {% endblock %}
@@ -27,7 +42,7 @@
             <li class="nav-item"><a class="nav-link" href="{{ url_for('users.user_profile') }}">Profil</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('users.logout') }}">Wyloguj</a></li>
           {% else %}
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('users.register') }}">Zarejestruj</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('users.register') }}">Rejestracja</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('users.login') }}">Zaloguj</a></li>
           {% endif %}
         </ul>

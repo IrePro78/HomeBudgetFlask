@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, request, abort, current_app, copy_current_request_context
-from project.mod_auth.forms import RegisterForm, LoginForm, EmailForm, PasswordForm, ChangePasswordForm
+from project.mod_auth.forms import RegisterForm, LoginForm, EmailForm, PasswordForm, ChangePasswordForm, EditForm
 from flask_login import login_user, current_user, login_required, logout_user
 from itsdangerous import URLSafeTimedSerializer, BadSignature
 from sqlalchemy.exc import IntegrityError
@@ -219,6 +219,21 @@ def delete_account():
 @login_required
 def user_profile():
     return render_template('users/user_profile.html')
+
+
+
+
+@users_blueprint.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditForm(username=current_user.username, email=current_user.email)
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            pass
+
+    return render_template('users/edit_profile.html', form=form)
+
+
 
 
 

@@ -6,20 +6,23 @@
 
 {% block content %}
 <div class="form-wrap">
-  <h1>Rejestracja użytkownika</h1>
+  <h1>Edycja profilu</h1>
+
+
 
   <form method="post">
+
     {{ form.csrf_token }}
 
     <div class="field">
       {{ form.username.label }}
-      {{ form.username }}
+        {{ form.username}}
       {% for error in form.username.errors %}
         <p class="validation-error">[{{ error }}]</p>
       {% endfor %}
     </div>
 
-      <div class="field">
+    <div class="field">
       {{ form.email.label }}
       {{ form.email }}
       {% for error in form.email.errors %}
@@ -27,26 +30,17 @@
       {% endfor %}
     </div>
 
-    <div class="field">
+
+        <div class="field">
       {{ form.password.label }}
       {{ form.password }}
-      {% for error in form.password.errors %}
-        <p class="validation-error">[{{ error }}]</p>
-      {% endfor %}
-    </div>
-{##}
-{#    <div class="field">#}
-{#      {{ form.password_repeat.label }}#}
-{#      {{ form.password_repeat }}#}
-{#      {% for error in form.password_repeat.errors %}#}
-{#        <p class="validation-error">[{{ error }}]</p>#}
-{#      {% endfor %}#}
-{#    </div>#}
 
+    </div>
 
     <div class="field">
-      <button type="submit">Register</button>
+      <button type="submit">Zapisz</button>
     </div>
   </form>
+
 </div>
 {% endblock %}

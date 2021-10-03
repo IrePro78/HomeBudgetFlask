@@ -4,8 +4,15 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/form_style.css') }}">
 {% endblock %}
 
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/register.js') }}" ></script>
+{% endblock %}
+
+
+
 {% block content %}
-<div class="form-wrap">
+    <div class="form-wrap">
   <h1>Rejestracja użytkownika</h1>
 
   <form method="post">
@@ -34,18 +41,18 @@
         <p class="validation-error">[{{ error }}]</p>
       {% endfor %}
     </div>
-{##}
-{#    <div class="field">#}
-{#      {{ form.password_repeat.label }}#}
-{#      {{ form.password_repeat }}#}
-{#      {% for error in form.password_repeat.errors %}#}
-{#        <p class="validation-error">[{{ error }}]</p>#}
-{#      {% endfor %}#}
-{#    </div>#}
+
+    <div class="field">
+      <label>Powtórz hasło:</label>
+      <input type="password" class="form-control" id="confirm_password"
+      name="confirm_password" required="1" onChange="checkPasswordMatch();" />
+      <div class="registrationFormAlert" id="message">
+      </div>
+    </div>
 
 
     <div class="field">
-      <button type="submit">Register</button>
+      <button type="submit">Rejestruj</button>
     </div>
   </form>
 </div>
