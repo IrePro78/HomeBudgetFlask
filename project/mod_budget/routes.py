@@ -22,8 +22,9 @@ def list_entries():
 def add_cost():
     if request.method == 'POST':
         category_id = add_category()
+        amount = float(request.form['amount']) * -1
         new_entry = Entry(request.form['title'],
-                          request.form['amount'],
+                          amount,
                           category_id,
                           current_user.id)
         db.session.add(new_entry)
@@ -45,14 +46,16 @@ def list_cost():
 @login_required
 def add_income():
     if request.method == 'POST':
+        category_id = add_category()
         new_entry = Entry(
-            request.form['name'],
-            request.form['amount'],
-            request.form['category_id'],
+            request.form['title'],
+            float(request.form['amount']),
+            category_id,
             current_user.id)
         db.session.add(new_entry)
         db.session.commit()
-        return redirect(url_for('budget.index'))
+        return redirect(url_for('budget.list_entries'))
+    return render_template('budget/add_income.html')
 
 
 @budget_blueprint.route('/list_income', methods=['GET'])

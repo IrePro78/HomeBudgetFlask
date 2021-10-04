@@ -15,7 +15,7 @@
       <th>Nazwa</th>
       <th>Kwota</th>
       <th>Kategoria</th>
-      <th>Utworzona</th>
+      <th>Wytworzony</th>
     </tr>
 
     <!-- Table Elements (Rows) -->
@@ -25,7 +25,7 @@
         <td>{{ entry.title }}</td>
         <td>{{ entry.amount }}</td>
         <td>{{ entry.category.name}}</td>
-        <td>{{ entry.created_at}}</td>
+        <td>{{ entry.created_at.strftime("%d-%m-%Y, %H:%M:%S")}}</td>
       </tr>
     {% endfor %}
   </table>
