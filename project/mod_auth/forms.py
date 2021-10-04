@@ -6,10 +6,10 @@ from flask_wtf import FlaskForm
 
 
 class RegisterForm(FlaskForm):
-    username = StringField('Nazwa użytkownika', [DataRequired(), Length(min=5)])
-    email = StringField('Email ', [DataRequired(), Email()])
-    password = PasswordField('Hasło', [DataRequired(), Length(min=6)])
-    # password_repeat = PasswordField('Powtórz Hasło', [validators.Length(min=6)])
+    username = StringField('Nazwa użytkownika', [DataRequired(), Length(min=5, message=('Nazwa jest za krótka.'))])
+    email = StringField('Email ', [DataRequired(), Email(message=('Nie prawidłowy adres email.'))])
+    password = PasswordField('Hasło', [DataRequired(), Length(min=6, message=('Hasło jest za krótkie.'))])
+
 
 
 
@@ -20,21 +20,21 @@ class LoginForm(FlaskForm):
 
 
 class EditForm(FlaskForm):
-    username = StringField('Nazwa użytkownika', [DataRequired(), Length(min=5)])
-    email = StringField('Email ', [DataRequired(), Email()])
-    password = PasswordField('Hasło', [DataRequired(), Length(min=6)])
+    username = StringField('Nazwa użytkownika', [DataRequired(), Length(min=5, message=('Nazwa jest za krótka.'))])
+    email = StringField('Email ', [DataRequired(), Email(message=('Nie prawidłowy adres email.'))])
+    password = PasswordField('Hasło', [DataRequired(), Length(min=6, message=('Hasło jest za krótkie.'))])
 
 
 
 class EmailForm(FlaskForm):
-    email = StringField('Email', [DataRequired(), Email()])
+    email = StringField('Email', [DataRequired(), Email(message=('Nie prawidłowy adres email.'))])
 
 
 
 class PasswordForm(FlaskForm):
-    password = PasswordField('Nowe Hasło', [DataRequired(), Length(min=6)])
+    password = PasswordField('Nowe Hasło', [DataRequired(), Length(min=6, message=('Hasło jest za krótkie.'))])
 
 
 class ChangePasswordForm(FlaskForm):
     current_password = PasswordField('Obecne Hasło ', [DataRequired(), Length(min=6)])
-    new_password = PasswordField('Nowe Hasło ', [DataRequired(), Length(min=6)])
+    new_password = PasswordField('Nowe Hasło ', [DataRequired(), Length(min=6, message=('Hasło jest za krótkie.'))])

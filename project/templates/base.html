@@ -30,13 +30,13 @@
     {% endblock %}
   </head>
 
-  <body>
+  <link>
     <header class="site-header">
       <nav class="nav">
         <a class="nav-link logo" href="{{ url_for('budget.index') }}">Flask Home Budget App</a>
         <ul class="nav-list">
           {% if current_user.is_authenticated %}
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.list_entries') }}">Lista Wpisów</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.list_entries') }}">Lista transakcji</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.add_cost') }}">Dodaj wydatek</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.add_income') }}">Dodaj przychód</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('users.user_profile') }}">Profil</a></li>
@@ -75,8 +75,11 @@
 
     <footer class="site-footer">
       <small>http://pythonweb.pl 2021</small>
-    </footer>
+      <br>
+      <br>
+      <a href="https://github.com/IrePro78/HomeBudgetFlask">Flask Home Budget App on Github</a>
 
+     </footer>
     {% block javascript %}
     {% endblock %}
 

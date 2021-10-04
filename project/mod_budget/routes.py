@@ -1,5 +1,7 @@
 from flask import render_template, request, redirect, url_for, flash, current_app
 from flask_login import login_required, current_user
+from sqlalchemy import func
+
 from . import budget_blueprint
 from models import Entry, Category
 from project import db
@@ -14,7 +16,8 @@ def index():
 @login_required
 def list_entries():
     all_entries = Entry.query.order_by(Entry.id).filter_by(user_id=current_user.id).all()
-    return render_template('budget/list_entries.html', entries=all_entries)
+    saldo = db.session.query(func.sum(Entry.amount)).scalar()
+    return render_template('budget/list_entries.html', entries=all_entries, saldo=saldo)
 
 
 @budget_blueprint.route('/add_cost', methods=['GET', 'POST'])

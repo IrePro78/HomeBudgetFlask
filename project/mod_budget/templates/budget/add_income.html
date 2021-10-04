@@ -6,11 +6,12 @@
 
 
 {% block content %}
+<div class="form-wrap">
 <h1>Dodaj przychód</h1>
 <form method="post">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   <div class="field">
-  <label for="incomeName">Nazwa:<em>*</em></label>
+  <label for="incomeName">Tytuł:<em>*</em></label>
   <input type="text" id="incomeName" name="title" required/>
   </div>
 
@@ -31,4 +32,5 @@
   </div>
 
 </form>
+</div>
 {% endblock %}

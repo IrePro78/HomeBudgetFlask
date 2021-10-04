@@ -1,33 +1,41 @@
 {% extends "base.html" %}
 
 {% block styling %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/entries_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/entries_style.css') }}">
 {% endblock %}
 
 {% block content %}
-<div class="entry-container">
-  <h1>Lista przychodów i wydatków:</h1>
+    <div class="entry-container">
+        <h1>Lista przychodów i wydatków:</h1>
 
-  <table class="entry-table">
-    <!-- Table Header Row -->
-    <tr>
-      <th>id</th>
-      <th>Nazwa</th>
-      <th>Kwota</th>
-      <th>Kategoria</th>
-      <th>Wytworzony</th>
-    </tr>
+        <table class="entry-table">
+            <!-- Table Header Row -->
+            <tr>
+                <th>Lp</th>
+                <th>Data operacji</th>
+                <th>Typ operacji</th>
+                <th>Tytuł operacji</th>
+                <th>Kategoria</th>
+                <th>Kwota</th>
 
-    <!-- Table Elements (Rows) -->
-    {% for entry in entries %}
-      <tr>
-        <td>{{ entry.id }}</td>
-        <td>{{ entry.title }}</td>
-        <td>{{ entry.amount }}</td>
-        <td>{{ entry.category.name}}</td>
-        <td>{{ entry.created_at.strftime("%d-%m-%Y, %H:%M:%S")}}</td>
-      </tr>
-    {% endfor %}
-  </table>
-</div>
+
+            </tr>
+
+            <!-- Table Elements (Rows) -->
+            {% for entry in entries %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ entry.created_at.strftime("%d/%m/%Y") }}</td>
+                    <td>Przelew</td>
+                    <td>{{ entry.title }}</td>
+                    <td>{{ entry.category.name }}</td>
+                    <td>{{ entry.amount }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="5" style="text-align:right">Saldo</td>
+                <td colspan="12" style="text-align:right">{{ saldo }}</td>
+            </tr>
+        </table>
+    </div>
 {% endblock %}

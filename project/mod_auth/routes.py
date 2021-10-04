@@ -72,7 +72,7 @@ def process_password_reset_token(token):
         user = User.query.filter_by(email=email).first()
 
         if user is None:
-            flash('Invalid email address!', 'error')
+            flash('Adres email jest nieprawidłowy!', 'error')
             return redirect(url_for('users.login'))
         user.updated_on = datetime.now()
         user.set_password(form.password.data)
@@ -208,7 +208,6 @@ def delete_account():
    user = User.query.filter_by(id=current_user.id).first()
    db.session.delete(user)
    db.session.commit()
-
 
    flash(f'Twoje konto zostało skasowane.', 'success')
    return redirect(url_for('users.login'))
