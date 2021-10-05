@@ -30,7 +30,7 @@ def create_app():
     app = Flask(__name__)
 
 
-    app.config.from_pyfile('/app/instance/flask.cfg')
+    app.config.from_pyfile('/app/instance/config.py')
 
 
     register_blueprints(app)
