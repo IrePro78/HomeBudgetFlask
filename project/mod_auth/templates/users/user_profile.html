@@ -38,9 +38,9 @@
   <div class="card-body">
     <p><a href="{{ url_for('users.edit_profile') }}">Edytuj profil</a></p>
     <p><a href="{{ url_for('users.change_password') }}">Zmień hasło</a></p>
-    <p><a href="{{ url_for('users.delete_account') }}"onclick="return confirm(
+    <p><a href="{{ url_for('users.delete_account') }}" onclick="return confirm(
         'Czy na pewno chcesz skasować swoje konto? Spowoduje to usunięcie' +
-         ' wszystkich danych na twoim koncie! ')">Usuń swoje konto</a></p>
+         ' wszystkich danych na twoim koncie! ')">Usuń konto</a></p>
 
     {% if not current_user.email_confirmed %}
       <p><a href="{{ url_for('users.resend_email_confirmation') }}">Wyślij link aktywacyjny</a></p>

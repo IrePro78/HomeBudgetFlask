@@ -1,6 +1,9 @@
 /* Budget List Styling
  ********************/
+
 table {
+  margin-left:auto;
+  margin-right:auto;
   table-layout: fixed;
   border-collapse: collapse;
   font-size: .9rem;

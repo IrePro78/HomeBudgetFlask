@@ -228,12 +228,13 @@ def edit_profile():
     form = EditForm(username=current_user.username, email=current_user.email)
     if request.method == 'POST':
         if form.validate_on_submit():
-            pass
-
+            current_user.username = form.username.data
+            current_user.email = form.email.data
+            db.session.commit()
+            logout_user()
+            flash('Użytkownik został zaktualizowany !', 'info')
+            return redirect(url_for('users.login'))
     return render_template('users/edit_profile.html', form=form)
-
-
-
 
 
 
