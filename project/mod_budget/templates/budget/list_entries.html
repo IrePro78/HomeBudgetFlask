@@ -9,7 +9,7 @@
         <h1>Lista przychodów i wydatków:</h1>
 
         <table class="entry-table">
-            <!-- Table Header Row -->
+            <thead>
             <tr>
                 <th>Lp</th>
                 <th>Data operacji</th>
@@ -17,11 +17,11 @@
                 <th>Tytuł operacji</th>
                 <th>Kategoria</th>
                 <th>Kwota</th>
-
-
+                <th>Akcja</th>
             </tr>
+            </thead>
 
-            <!-- Table Elements (Rows) -->
+            <tbody>
             {% for entry in entries %}
                 <tr>
                     <td>{{ loop.index }}</td>
@@ -30,12 +30,30 @@
                     <td>{{ entry.title }}</td>
                     <td>{{ entry.category.name }}</td>
                     <td>{{ entry.amount }}</td>
+                    <td>
+
+{#                        <button id="{{  entry.id }}" onclick=""#}
+
+                        <form action="{{ url_for('budget.edit_entry') }}">
+                        <input type="submit" id="{{ entry.id }}" value="Edycja" />
+                        </form>
+                    </td>
+
                 </tr>
             {% endfor %}
+            </tbody>
+
+            <tfoot>
             <tr>
-                <td colspan="5" style="text-align:right">Saldo</td>
-                <td colspan="12" style="text-align:right">{{ saldo }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><b>Saldo</b></td>
+                <td><b>{{ saldo }}</b></td>
+                <td></td>
             </tr>
+            </tfoot>
         </table>
     </div>
 {% endblock %}

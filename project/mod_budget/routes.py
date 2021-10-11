@@ -79,6 +79,28 @@ def add_category():
 
 
 
+@budget_blueprint.route('/edit_entry', methods=['GET', 'POST'])
+@login_required
+def edit_entry():
+    if request.method == 'POST':
+        entry = Entry.query.get(request.form.get('id'))
+        entry.id = request.form['id']
+        entry.title = request.form['title']
+        entry.amount = request.form['amount']
+        entry.category_id = request.form['category_id']
+        db.session.commit()
+        flash('Wpis został zaktualizowany!', 'info')
+        return redirect(url_for('budget.list_entries'))
+    return render_template('budget/edit_entry.html')
+
+
+
+
+
+
+
+
+
 
 @budget_blueprint.route('/report', methods=['GET', 'POST'])
 @login_required

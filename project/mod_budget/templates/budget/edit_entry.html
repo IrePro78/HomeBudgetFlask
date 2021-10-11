@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block styling %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form_style.css') }}">
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="form-wrap">
+        <h1>Edycja wpisu</h1>
+        <form method="post">
+
+            {% for entry in entries %}
+
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+                    <input type="hidden" name="id" value="{{ entry.id }}">
+
+                <div class="field">
+                    <label for="editTitle">Tytuł:<em>*</em></label>
+                    <input type="text" id="editTitle" name="title"
+                           value="{{ row.title }}" required/>
+                </div>
+
+                <div class="field">
+
+                    <label for="editAmount">Kwota:<em>*</em></label>
+                    <input type="number" step="0.01" id="editAmount"
+                           name="amount" value="{{ row.title }}" required/>
+                </div>
+
+                <div class="field">
+
+                    <label for="editCategory">Kategoria:<em>*</em></label>
+                    <input type="text" id="editCategory" name="category_id"
+                           value="{{ row.title }}" required/>
+                </div>
+
+                <div class="field">
+                    <button type="submit">Zapisz</button>
+                </div>
+
+
+            {% endfor %}
+        </form>
+    </div>
+{% endblock %}

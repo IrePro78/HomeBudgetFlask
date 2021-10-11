@@ -8,8 +8,6 @@
 <div class="form-wrap">
   <h1>Edycja profilu</h1>
 
-
-
   <form method="post">
 
     {{ form.csrf_token }}
@@ -29,14 +27,6 @@
         <p class="validation-error">[{{ error }}]</p>
       {% endfor %}
     </div>
-{##}
-{##}
-{#        <div class="field">#}
-{#      {{ form.password.label }}#}
-{#      {{ form.password }}#}
-{##}
-{#    </div>#}
-
     <div class="field">
       <button type="submit">Zapisz</button>
     </div>

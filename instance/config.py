@@ -4,7 +4,7 @@ from os import getenv
 FLASK_ENV = 'development'
 DEBUG = True
 TESTING = False
-SECRET_KEY = getenv('SECRET_KEY', default='BAD_SECRET_KEY')
+SECRET_KEY = getenv('SECRET_KEY')
 
 
 SESSION_TYPE = 'memcached'
@@ -22,3 +22,5 @@ MAIL_USE_SSL = True
 MAIL_USERNAME = 'flaskdjangopython@gmail.com'
 MAIL_PASSWORD = getenv('MAIL_PASSWORD')
 MAIL_DEFAULT_SENDER = 'admin@gmail.pl'
+
+

@@ -10,6 +10,8 @@ services:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
       - FLASK_APP=app.py
+    env_file:
+      - .env
     volumes:
       - .:/app
   db:
