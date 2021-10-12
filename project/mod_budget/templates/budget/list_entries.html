@@ -31,9 +31,6 @@
                     <td>{{ entry.category.name }}</td>
                     <td>{{ entry.amount }}</td>
                     <td>
-
-{#                        <button id="{{  entry.id }}" onclick=""#}
-
                         <form action="{{ url_for('budget.edit_entry') }}">
                         <input type="submit" id="{{ entry.id }}" value="Edycja" />
                         </form>
