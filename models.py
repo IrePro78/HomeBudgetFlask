@@ -8,6 +8,7 @@ class Entry(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
+    type = db.Column(db.String, nullable=False)
     amount = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.DateTime, server_default=func.now())
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
@@ -15,8 +16,9 @@ class Entry(db.Model):
     category = db.relationship('Category', backref='entry')
 
 
-    def __init__(self, title, amount, category_id, user_id):
+    def __init__(self, title, type, amount, category_id, user_id):
         self.title = title
+        self.type = type
         self.amount = amount
         self.category_id = category_id
         self.user_id = user_id

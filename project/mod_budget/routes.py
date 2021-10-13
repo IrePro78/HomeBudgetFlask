@@ -26,8 +26,10 @@ def list_entries():
 def add_cost():
     if request.method == 'POST':
         category_id = add_category()
+        type ='W'
         amount = float(request.form['amount']) * -1
         new_entry = Entry(request.form['title'],
+                          type,
                           amount,
                           category_id,
                           current_user.id)
@@ -51,8 +53,10 @@ def list_cost():
 def add_income():
     if request.method == 'POST':
         category_id = add_category()
+        type ='P'
         new_entry = Entry(
             request.form['title'],
+            type,
             float(request.form['amount']),
             category_id,
             current_user.id)
@@ -78,22 +82,32 @@ def add_category():
         return new_category.id
 
 
+@budget_blueprint.route('/update_category', methods=['GET', 'POST'])
+@login_required
+def update_category():
+    pass
 
-@budget_blueprint.route('/edit_entry', methods=['GET', 'POST'])
+
+
+
+
+@budget_blueprint.route('/edit_entry/<id>', methods=['GET', 'POST'])
 @login_required
 
-def edit_entry():
-    all_entries = Entry.query.order_by(Entry.id).filter_by(user_id=current_user.id).all()
+def edit_entry(id):
+    entries = Entry.query.order_by(Entry.id).filter_by(id=id).all()
     if request.method == 'POST':
-        entry = Entry.query.get(request.form.get('id'))
-        entry.id = request.form['id']
+        entry = entries[0]
         entry.title = request.form['title']
-        entry.amount = request.form['amount']
-        entry.category_id = request.form['category_id']
+        if entry.type == "W":
+            entry.amount = float(request.form['amount']) * -1
+        else:
+            entry.amount = request.form['amount']
+        entry.category_id = add_category()
         db.session.commit()
         flash('Wpis został zaktualizowany!', 'info')
         return redirect(url_for('budget.list_entries'))
-    return render_template('budget/edit_entry.html', entries=all_entries)
+    return render_template('budget/edit_entry.html', entry=entries[0])
 
 
 

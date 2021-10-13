@@ -11,10 +11,9 @@
     <div class="form-wrap">
         <h1>Edycja wpisu</h1>
 
-        <form action="{{url_for('budget.edit_entry')}}" method="post">
+        <form action="/edit_entry/{{ entry.id }}" method="post">
            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-            {% for entry in entries %}
-                <input type="hidden" name="{{entry.id }}" value="{{ entry.id }}">
+
 
                 <div class="field">
                     <label for="editTitle">Tytuł:<em>*</em></label>
@@ -24,20 +23,19 @@
 
                 <div class="field">
                     <label for="editAmount">Kwota:<em>*</em></label>
-                    <input type="number" step="0.01" id="editAmount"
+                    <input type="number" step="0.01" min="0" id="editAmount"
                            name="amount" value="{{ entry.amount }}" required/>
                 </div>
 
                 <div class="field">
                     <label for="editCategory">Kategoria:<em>*</em></label>
-                    <input type="text" id="editCategory" name="category_id"
+                    <input type="text" id="editCategory" name="category"
                            value="{{ entry.category }}" required/>
                 </div>
 
                 <div class="field">
                     <button type="submit">Zapisz</button>
                 </div>
-            {% endfor %}
         </form>
     </div>
 

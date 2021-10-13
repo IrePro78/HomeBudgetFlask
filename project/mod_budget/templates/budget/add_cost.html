@@ -10,6 +10,7 @@
         <h1>Dodaj wydatek</h1>
         <form method="post">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
             <div class="field">
                 <label for="costName">Tytuł:<em>*</em></label>
                 <input type="text" id="costName" name="title" required/>
