@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block styling %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/entries_style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.statements') }}">Zestawienia</a></li>
+    <div class="entry-container">
+        <h1>Zestawienia przychodów i wydatków:</h1>
+
+        <table class="entry-table">
+            <!-- Table Header Row -->
+            <tr>
+                <th>Lp</th>
+                <th>Data operacji</th>
+                <th>Typ operacji</th>
+                <th>Tytuł operacji</th>
+                <th>Kategoria</th>
+                <th>Kwota</th>
+
+
+            </tr>
+
+            <!-- Table Elements (Rows) -->
+            {% for entry in entries %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ entry.created_at.strftime("%d/%m/%Y") }}</td>
+                    <td>Przelew</td>
+                    <td>{{ entry.title }}</td>
+                    <td>{{ entry.category.name }}</td>
+                    <td>{{ entry.amount }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="5" style="text-align:right">Saldo</td>
+                <td colspan="12" style="text-align:right">{{ saldo }}</td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

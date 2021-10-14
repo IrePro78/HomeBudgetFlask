@@ -38,6 +38,7 @@
         <a class="nav-link logo" href="{{ url_for('budget.index') }}">Flask Home Budget App</a>
         <ul class="nav-list">
           {% if current_user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.statements') }}">Zestawienia</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.list_entries') }}">Lista transakcji</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.add_cost') }}">Dodaj wydatek</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.add_income') }}">Dodaj przychód</a></li>

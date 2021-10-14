@@ -1,7 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash, current_app
 from flask_login import login_required, current_user
 from sqlalchemy import func
-
 from . import budget_blueprint
 from models import Entry, Category
 from project import db
@@ -117,7 +116,8 @@ def edit_entry(id):
 
 
 
-@budget_blueprint.route('/report', methods=['GET', 'POST'])
+@budget_blueprint.route('/statements', methods=['GET', 'POST'])
 @login_required
-def report():
-    pass
+def statements():
+    all_entries = Entry.query.order_by(Entry.id).filter_by(user_id=current_user.id).all()
+    return render_template('budget/statements.html', entries=all_entries)

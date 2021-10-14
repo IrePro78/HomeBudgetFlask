@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/form_style.css') }}">
 {% endblock %}
 
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/sel_category.js') }}" ></script>
+{% endblock %}
+
+
 
 {% block content %}
     <div class="form-wrap">
@@ -17,15 +22,15 @@
             </div>
 
             <div class="field">
-
                 <label for="incomeAmount">Kwota:<em>*</em></label>
                 <input type="number" step="0.01" id="incomeAmount" name="amount" required/>
             </div>
 
             <div class="field">
-
-                <label for="Category">Kategoria:<em>*</em></label>
-                <input type="text" id="selectCategory" name="category" required/>
+                <label for="selCatIncome">Kategoria:<em>*</em></label>
+                <select id= "selCatIncome" name="category" required="1" style="width: 100%;">
+                <option value="">---</option>
+                </select>
             </div>
 
             <div class="field">

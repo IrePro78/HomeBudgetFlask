@@ -1,4 +1,4 @@
-var category_list = [{
+var category_cost_list = [{
         id: "Jedzenie",
         text: "Jedzenie"}, {
         id: "Mieszkanie",
@@ -10,16 +10,32 @@ var category_list = [{
         id: "Relaks",
         text: "Relaks"}, {
         id: "Transport",
-        text: "Trnsport"}, {
+        text: "Transport"}, {
         id: "Inne wydatki",
-        text:"Inne wydatki"}
+        text: "Inne wydatki"},
+
+];
+
+var category_income_list = [{
+        id: "Wynagrodzenie",
+        text: "Wynagrodzenie"}, {
+        id: "Zwrot podatku",
+        text: "Zwrot podatku"}, {
+        id: "Dodatkowy dochód",
+        text: "Dodatkowy dochód"}, {
+        id: "Wygrana na loterii",
+        text: "Wygrana na loterii"}
 ];
 
 $(function () {
-
-
-        $(".form-wrap").find('#selectCategory').select2({
-            data: category_list
+        $(".form-wrap").find('#selCatCost').select2({
+            data: category_cost_list
         });
+
     });
 
+$(function () {
+        $(".form-wrap").find('#selCatIncome').select2({
+            data: category_income_list
+        });
+    });
