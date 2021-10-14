@@ -93,7 +93,6 @@ def update_category():
 
 @budget_blueprint.route('/edit_entry/<id>', methods=['GET', 'POST'])
 @login_required
-
 def edit_entry(id):
     entries = Entry.query.order_by(Entry.id).filter_by(id=id).all()
     if request.method == 'POST':

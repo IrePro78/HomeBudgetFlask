@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/form_style.css') }}">
 {% endblock %}
 
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/sel_category.js') }}" ></script>
+{% endblock %}
+
+
 
 {% block content %}
     <div class="form-wrap">
@@ -23,9 +28,12 @@
             </div>
 
             <div class="field">
+                <label for="selectCategory">Kategoria:<em>*</em></label>
 
-                <label for="costCategory">Kategoria:<em>*</em></label>
-                <input type="text" id="costCategory" name="category" required/>
+                <select id= "selectCategory" name="category" required="1" style="width: 100%;">
+                    <option value="">---</option>
+                </select>
+
             </div>
 
             <div class="field">
