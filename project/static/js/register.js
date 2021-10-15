@@ -1,7 +1,7 @@
 
 function checkPasswordMatch() {
-    var password = $("#password").val();
-    var confirmPassword = $("#confirm_password").val();
+    let password = $("#password").val();
+    let confirmPassword = $("#confirm_password").val();
 
     $(':button[type="submit"]').prop('disabled', false);
 

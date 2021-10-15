@@ -116,8 +116,9 @@ def edit_entry(id):
 
 
 
-@budget_blueprint.route('/statements', methods=['GET', 'POST'])
+@budget_blueprint.route('/statements', methods=['GET'])
 @login_required
 def statements():
     all_entries = Entry.query.order_by(Entry.id).filter_by(user_id=current_user.id).all()
-    return render_template('budget/statements.html', entries=all_entries)
+    saldo = db.session.query(func.sum(Entry.amount)).filter_by(user_id=current_user.id).scalar()
+    return render_template('budget/statements.html', entries=all_entries, saldo='Brak' if saldo is None else saldo)

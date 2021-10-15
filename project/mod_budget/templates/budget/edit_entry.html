@@ -4,6 +4,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/form_style.css') }}">
 {% endblock %}
 
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/sel_category.js') }}" ></script>
+{% endblock %}
+
 
 
 {% block content %}
@@ -24,13 +28,22 @@
                 <div class="field">
                     <label for="editAmount">Kwota:<em>*</em></label>
                     <input type="number" step="0.01" min="0" id="editAmount"
-                           name="amount" value="{{ entry.amount }}" required/>
+                           name="amount" value="{{ entry.amount|abs }}" required/>
                 </div>
 
                 <div class="field">
-                    <label for="editCategory">Kategoria:<em>*</em></label>
-                    <input type="text" id="selectCategory" name="category"
-                           value="{{ entry.category }}" required/>
+                    <label for="selCatCost">Kategoria:<em>*</em></label>
+
+                    {% if entry.type == "W" %}
+                        <select id="selCatCost" name="category" required="1" style="width: 100%;">
+                    {% else %}
+                        <select id="selCatIncome" name="category" required="1" style="width: 100%;">
+                    {% endif %}
+                        <option value="{{ entry.category }}" selected="selected">{{ entry.category }}</option>
+                    </select>
+
+
+
                 </div>
 
                 <div class="field">

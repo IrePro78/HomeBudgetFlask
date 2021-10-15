@@ -5,38 +5,122 @@
 {% endblock %}
 
 {% block content %}
-    <li class="nav-item"><a class="nav-link" href="{{ url_for('budget.statements') }}">Zestawienia</a></li>
-    <div class="entry-container">
+    <div class="entry-container" id="print-table">
+        <style>
+            h1 {
+                text-align: center;
+            }
+        </style>
+
         <h1>Zestawienia przychodów i wydatków:</h1>
+
+    <style>
+       h {
+            text-align: right;
+        }
+    </style>
+
+<div>
+    <h>
+<label for="incomesCheck">Przychody:</label>
+<input type="checkbox" id="incomesCheck" onclick="myFunction()">
+<label for="costsCheck">Przychody:</label>
+<input type="checkbox" id="costsCheck" onclick="myFunction()">
+<p id="text" style="display:none">Checkbox is CHECKED!</p>
+    </h>
+</div>
+
+
+
+<script>
+function myFunction() {
+  let checkBox = document.getElementById("incomesCheck");
+  let text = document.getElementById("text");
+  if (checkBox.checked === true){
+    text.style.display = "block";
+  } else {
+     text.style.display = "none";
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+{##}
+{#<div>#}
+{#  <input type="checkbox" id="costs" name="costs"#}
+{#         checked>#}
+{#  <label for="costs">Wydatki</label>#}
+{#</div>#}
+{##}
+{#<div>#}
+{#  <input type="checkbox" id="incomes" name="incomes">#}
+{#  <label for="incomes">Przychody</label>#}
+{#</div>#}
+
+
 
         <table class="entry-table">
             <!-- Table Header Row -->
+            <thead>
             <tr>
                 <th>Lp</th>
                 <th>Data operacji</th>
-                <th>Typ operacji</th>
+                <th>Typ</th>
                 <th>Tytuł operacji</th>
                 <th>Kategoria</th>
                 <th>Kwota</th>
-
-
             </tr>
+            </thead>
+
+{#            {% if %}#}
+
 
             <!-- Table Elements (Rows) -->
+            <tbody>
             {% for entry in entries %}
                 <tr>
                     <td>{{ loop.index }}</td>
                     <td>{{ entry.created_at.strftime("%d/%m/%Y") }}</td>
-                    <td>Przelew</td>
+                    <td>{{ entry.type }}</td>
                     <td>{{ entry.title }}</td>
                     <td>{{ entry.category.name }}</td>
                     <td>{{ entry.amount }}</td>
                 </tr>
             {% endfor %}
+            </tbody>
+            <tfoot>
             <tr>
-                <td colspan="5" style="text-align:right">Saldo</td>
-                <td colspan="12" style="text-align:right">{{ saldo }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><b>Saldo</b></td>
+                <td><b>{{ saldo }}</b></td>
             </tr>
+            </tfoot>
         </table>
+        <h1>
+        <input type="button" onclick="printDiv('print-table')" value="Drukuj zestawienie" />
+        </h1>
+        <script type="text/javascript">
+            function printDiv(table) {
+                let printContents = document.getElementById(table).innerHTML;
+                w = window.open();
+                w.document.write(printContents);
+                w.print();
+                w.close();
+            }
+        </script>
+
     </div>
 {% endblock %}
