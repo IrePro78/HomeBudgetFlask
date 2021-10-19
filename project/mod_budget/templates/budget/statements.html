@@ -15,29 +15,18 @@
         <h1>Zestawienia przychodów i wydatków:</h1>
 
 
-<div style="text-align:center;">
-
-<label for="incomesCheck">Przychody:</label>
-<input type="checkbox" id="incomesCheck" onclick="myFunction()">
-<label for="costsCheck">Przychody:</label>
-<input type="checkbox" id="costsCheck" onclick="myFunction()">
-<p id="text" style="display:none">Checkbox is CHECKED!</p>
-
-</div>
-
-
-
-<script>
-function myFunction() {
-  let checkBox = document.getElementById("incomesCheck");
-  let text = document.getElementById("text");
-  if (checkBox.checked === true){
-    text.style.display = "block";
-  } else {
-     text.style.display = "none";
-  }
-}
-</script>
+        <form method="post">
+            <div style="text-align:center;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <label for="incomesCheck">Przychody:</label>
+                <input type="checkbox" id="incomesCheck" name="mycheckbox" value="P">
+                <label for="costsCheck">Wydatki:</label>
+                <input type="checkbox" id="costsCheck" name="mycheckbox" value="W">
+                &nbsp;
+                <input type="submit" value="Wyświetl" />
+            </div>
+        </form>
+        <br>
 
         <table class="entry-table">
             <!-- Table Header Row -->
@@ -51,8 +40,6 @@ function myFunction() {
                 <th>Kwota</th>
             </tr>
             </thead>
-
-{#            {% if %}#}
 
 
             <!-- Table Elements (Rows) -->
@@ -75,13 +62,14 @@ function myFunction() {
                 <td></td>
                 <td></td>
                 <td><b>Saldo</b></td>
-                <td><b>{{ saldo }}</b></td>
+                <td><b>{{ saldo | round(2, 'common') }}</b></td>
             </tr>
             </tfoot>
         </table>
         <h1>
-        <input type="button" onclick="printDiv('print-table')" value="Drukuj zestawienie" />
+            <input type="button" onclick="printDiv('print-table')" value="Drukuj zestawienie"/>
         </h1>
+
         <script type="text/javascript">
             function printDiv(table) {
                 let printContents = document.getElementById(table).innerHTML;

@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash, current_app
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from sqlalchemy import func
 from . import budget_blueprint
@@ -19,13 +19,12 @@ def list_entries():
     return render_template('budget/list_entries.html', entries=all_entries, saldo='Brak' if saldo is None else saldo)
 
 
-
 @budget_blueprint.route('/add_cost', methods=['GET', 'POST'])
 @login_required
 def add_cost():
     if request.method == 'POST':
         category_id = add_category()
-        type ='W'
+        type = 'W'
         amount = float(request.form['amount']) * -1
         new_entry = Entry(request.form['title'],
                           type,
@@ -38,13 +37,10 @@ def add_cost():
     return render_template('budget/add_cost.html')
 
 
-
 @budget_blueprint.route('/list_cost', methods=['GET'])
 @login_required
 def list_cost():
     pass
-
-
 
 
 @budget_blueprint.route('/add_income', methods=['GET', 'POST'])
@@ -52,7 +48,7 @@ def list_cost():
 def add_income():
     if request.method == 'POST':
         category_id = add_category()
-        type ='P'
+        type = 'P'
         new_entry = Entry(
             request.form['title'],
             type,
@@ -87,9 +83,6 @@ def update_category():
     pass
 
 
-
-
-
 @budget_blueprint.route('/edit_entry/<id>', methods=['GET', 'POST'])
 @login_required
 def edit_entry(id):
@@ -108,17 +101,19 @@ def edit_entry(id):
     return render_template('budget/edit_entry.html', entry=entries[0])
 
 
-
-
-
-
-
-
-
-
-@budget_blueprint.route('/statements', methods=['GET'])
+@budget_blueprint.route('/statements', methods=['GET', 'POST'])
 @login_required
 def statements():
     all_entries = Entry.query.order_by(Entry.id).filter_by(user_id=current_user.id).all()
     saldo = db.session.query(func.sum(Entry.amount)).filter_by(user_id=current_user.id).scalar()
+    if request.method == 'POST':
+        operation_type = request.form.getlist('mycheckbox')
+        if len(operation_type) == 1:
+            all_entries = Entry.query.order_by(Entry.id).filter_by(
+                user_id=current_user.id, type=operation_type[0]).all()
+            saldo = db.session.query(func.sum(Entry.amount)).filter_by(
+                user_id=current_user.id, type=operation_type[0]).scalar()
+            return render_template('budget/statements.html', entries=all_entries,
+                                   saldo='Brak' if saldo is None else saldo)
+
     return render_template('budget/statements.html', entries=all_entries, saldo='Brak' if saldo is None else saldo)
