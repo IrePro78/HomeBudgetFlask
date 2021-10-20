@@ -2,7 +2,6 @@ from sqlalchemy import func
 from project import db, fbcrypt
 
 
-
 class Entry(db.Model):
     __tablename__ = "entries"
 
@@ -15,7 +14,6 @@ class Entry(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     category = db.relationship('Category', backref='entry')
 
-
     def __init__(self, title, type, amount, category_id, user_id):
         self.title = title
         self.type = type
@@ -23,11 +21,8 @@ class Entry(db.Model):
         self.category_id = category_id
         self.user_id = user_id
 
-
     def __str__(self):
         return self.title
-
-
 
 
 class Category(db.Model):
@@ -36,19 +31,11 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
-
     def __init__(self, name):
         self.name = name
 
-
     def __str__(self):
         return self.name
-
-
-#
-# class Report(db.Model):
-#     __tablename__ = "reports"
-#
 
 
 class User(db.Model):
@@ -65,19 +52,13 @@ class User(db.Model):
     email_confirmed_on = db.Column(db.DateTime)
     entries = db.relationship('Entry', cascade="all, delete, delete-orphan", backref='user', lazy='dynamic')
 
-
-
     def __init__(self, username: str, password_plaintext: str, email: str):
         self.email = email
         self.username = username
         self.password = self._generate_password_hash(password_plaintext)
 
-
-
-
     def is_password_correct(self, password_plaintext: str):
         return fbcrypt.check_password_hash(self.password, password_plaintext)
-
 
     def set_password(self, password_plaintext: str):
         self.password = self._generate_password_hash(
@@ -87,8 +68,6 @@ class User(db.Model):
     def _generate_password_hash(password_plaintext):
         return fbcrypt.generate_password_hash(
             password_plaintext).decode('utf-8')
-
-
 
     @property
     def is_authenticated(self):
@@ -100,23 +79,7 @@ class User(db.Model):
 
     @property
     def is_anonymous(self):
-         return False
+        return False
 
     def get_id(self):
         return str(self.id)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

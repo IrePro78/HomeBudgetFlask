@@ -21,7 +21,7 @@ def generate_password_reset_email(user_email):
                                  token=password_reset_serializer.dumps(user_email, salt='@4Dd4%3!%$#sdA*73$^4!'),
                                  _external=True)
 
-    return Message(subject='Flask Books Library App - Żądanie zresetowania hasła!',
+    return Message(subject='Flask Home Budget App - Żądanie zresetowania hasła!',
                    html=render_template('users/email_password_reset.html', password_reset_url=password_reset_url),
                    recipients=[user_email])
 
@@ -245,7 +245,7 @@ def generate_confirmation_email(user_email):
                           token=confirm_serializer.dumps(user_email, salt='@4Dcert65573$^4!'),
                           _external=True)
 
-    return Message(subject='Flask Books Library App - Potwierdź adres email',
+    return Message(subject='Flask Home Budget App - Potwierdź adres email',
                    html=render_template('users/email_confirmation.html', confirm_url=confirm_url),
                    recipients=[user_email])
 

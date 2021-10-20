@@ -2,6 +2,7 @@ version: "3.9"
 services:
   app:
     container_name: app_home_budget
+
     restart: always
     build: .
     ports:
@@ -10,13 +11,18 @@ services:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
       - FLASK_APP=app.py
+
     env_file:
       - .env
+    depends_on:
+      - db
     volumes:
       - .:/app
+
   db:
-    image: "postgres"
+    image: postgres
     container_name: postgres_home_budget
+
     ports:
       - "5432:5432"
     environment:

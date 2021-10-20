@@ -1,17 +1,22 @@
 from logging.handlers import RotatingFileHandler
 from flask.logging import default_handler
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
+from flask_login import LoginManager
+from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
-from flask import Flask
 import logging
 
 
 # Baza danych
+from config import Config
+
 db = SQLAlchemy()
 
+# Migracja db
+db_migration = Migrate()
 
 # Logowanie użytkowników
 login = LoginManager()
@@ -29,9 +34,7 @@ mail = Mail()
 def create_app():
     app = Flask(__name__)
 
-
-    app.config.from_pyfile('/app/instance/config.py')
-
+    app.config.from_object('config.DevelopmentConfig')
 
     register_blueprints(app)
     configure_logging(app)
@@ -50,7 +53,7 @@ def register_blueprints(app):
 
 def configure_logging(app):
     # Logging Configuration
-    file_handler = RotatingFileHandler('instance/logs/flask-books-library-app.log',
+    file_handler = RotatingFileHandler('instance/logs/home-budget-flask-app.log',
                                        maxBytes=16384,
                                        backupCount=20)
     file_formatter = logging.Formatter(
@@ -63,18 +66,22 @@ def configure_logging(app):
     app.logger.removeHandler(default_handler)
 
     # Logger
-    app.logger.info('Uruchamianie aplikacji Flask Books Library App... ')
+    app.logger.info('Uruchamianie aplikacji Home Budget Flask App... ')
 
 
 def initialize_extensions(app):
     # Inicjalizacja bazy danych
     db.init_app(app)
 
+    # Migracja bazy danych
+    db_migration.init_app(app, db)
+
     # Logowanie użytkowników
     login.init_app(app)
     login.login_view = 'users.login'
     login.login_message = 'Zaloguj się, aby uzyskać dostęp do tej strony.'
     login.login_message_category = 'info'
+
 
     from models import User
 
@@ -97,3 +104,16 @@ def initialize_extensions(app):
     # Mail
     mail.init_app(app)
 
+#
+# def register_error_pages(app):
+#     @app.errorhandler(404)
+#     def page_not_found(e):
+#         return render_template('404.html'), 404
+#
+#     @app.errorhandler(405)
+#     def method_not_allowed(e):
+#         return render_template('405.html'), 405
+#
+#     @app.errorhandler(403)
+#     def page_forbidden(e):
+#         return render_template('403.html'), 403
