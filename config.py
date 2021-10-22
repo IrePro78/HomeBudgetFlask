@@ -1,7 +1,6 @@
 import os
 from datetime import timedelta
 
-
 class Config(object):
     FLASK_ENV = 'development'
     DEBUG = False

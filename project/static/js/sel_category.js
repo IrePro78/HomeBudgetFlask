@@ -19,6 +19,8 @@ var category_cost_list = [{
 var category_income_list = [{
         id: "Wynagrodzenie",
         text: "Wynagrodzenie"}, {
+        id: "Świadczenia socjalne",
+        text: "Świadczenia socjalne"}, {
         id: "Zwrot podatku",
         text: "Zwrot podatku"}, {
         id: "Dodatkowy dochód",
