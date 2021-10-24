@@ -31,7 +31,7 @@ def generate_password_reset_email(user_email):
 def password_reset_via_email():
     form = EmailForm()
 
-    if form.validate():
+    if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
 
         if user is None:
